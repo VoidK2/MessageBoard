@@ -14,15 +14,15 @@
     System.out.println("获取到用户名密码:"+email1+passwd1);
     String passwd2;
     String permission2;
-    String sql = String.format("select name,passwd,permission from user where username=\"%s\"",email1);
+    String sql = String.format("select name_u,passwd,permission from user where name_u=\"%s\"",email1);
     System.out.println(sql);
     Connection conn;
     Statement stm;
     ResultSet rs = null;
     try{
         Class.forName("com.mysql.jdbc.Driver");
-        String url = "jdbc:mysql://138.68.229.183/messageboard?characterEncoding=UTF-8";
-        conn = DriverManager.getConnection(url, "root", "27144100");
+        String url = "jdbc:mysql://39.108.90.113/messageboard?characterEncoding=UTF-8";
+        conn = DriverManager.getConnection(url, "root", "270400");
         stm =conn.createStatement();
         rs = stm.executeQuery(sql);
     }

@@ -6,7 +6,6 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="java.sql.*" %>
 <html>
 <head>
   <title>后台</title>
@@ -43,11 +42,10 @@
           <%=userN%>
         </a>
       </li>
-      <li class="layui-nav-item"><a href="proc/destroySession.jsp">退了</a></li>
+      <li class="layui-nav-item"><a href="process/destroySession.jsp">退了</a></li>
       <%}%>
 
       <%
-        //                session过期时
         if (userN == null) {
       %>
       <li class="layui-nav-item">
@@ -66,32 +64,17 @@
     <div class="layui-side-scroll">
       <%if(userP != null){%>
       <ul class="layui-nav layui-nav-tree" lay-filter="test">
-        <li class="layui-nav-item">
-          <a class="" href="javascript:;">书籍信息管理</a>
+        <li class="layui-nav-item layui-nav-itemed">
+          <a class="" href="javascript:;">留言信息</a>
           <dl class="layui-nav-child">
-            <dd><a href="bookinfo.jsp">图书信息</a></dd>
-            <%if(userP.equals("2")||userP.equals("3")){%>
-            <dd><a href="addbook.jsp">新建图书信息</a></dd>
+            <%if(userP.equals("2")){%>
+            <dd class="layui-this"><a href="addbook.jsp">看留言</a></dd>
+            <%}%>
+            <%if(userP.equals("1")){%>
+            <dd class="layui-this"><a href="sendMsg4User.jsp">写留言</a></dd>
             <%}%>
           </dl>
         </li>
-        <li class="layui-nav-item">
-          <a href="javascript:;">出版社信息管理</a>
-          <dl class="layui-nav-child">
-            <dd><a href="publisherinfo.jsp">出版社信息</a></dd>
-            <%if(userP.equals("2")||userP.equals("3")){%>
-            <dd><a href="addpublisher.jsp">新建出版社信息</a></dd>
-            <%}%>
-          </dl>
-        </li>
-        <%if(userP.equals("3")){%>
-        <li class="layui-nav-item">
-          <a href="javascript:;">账号权限管理</a>
-          <dl class="layui-nav-child">
-            <dd><a href="accountinfo.jsp">账号信息</a></dd>
-          </dl>
-        </li>
-        <%}%>
       </ul>
       <%}%>
     </div>
@@ -120,9 +103,9 @@
 
     <div class="layui-footer">
       <!-- 底部固定区域 -->
-      © zhangzexin.site
+      ©遵循MIT许可协议
       <i class="layui-icon layui-icon-link" style="font-size: 15px; "></i>
-      <a herf="https://github.com/VoidK2/bookstore-web">github链接</a>
+      <a herf="https://github.com/VoidK2/MessageBoard/tree/master">github链接</a>
     </div>
   </div>
   <script src="./layui/layui.all.js"></script>

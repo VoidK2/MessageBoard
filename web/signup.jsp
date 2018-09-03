@@ -17,7 +17,7 @@
 <body>
 <div class="layui-container" align="center">
     <p style="color: #1E9FFF;font-size: 40px">留言板注册</p>
-    <form class="layui-form" action="proc/dosignup.jsp" method="post">
+    <form class="layui-form" action="process/dosignup.jsp" method="post">
         <div class="layui-input-inline" style="margin: 8px">
             <input type="text" name="account" required  lay-verify="required" placeholder="邮箱" autocomplete="off" class="layui-input">
         </div>
