@@ -86,7 +86,7 @@
         <%
             request.setCharacterEncoding("utf-8");
             String iid=request.getParameter("iid");
-            String sql = String.format("select title,info,senddate,feedback,feeddate" +
+            String sql = String.format("select title,info,senddate,feedback,feedtime" +
                     " from message where id=\'%s\'",iid);
             System.out.println(sql);
             Connection conn;
@@ -116,23 +116,23 @@
                         <tbody>
                         <tr>
                             <td>标题： </td>
-                            <td><input type="text" value="<%=rs.getString("title")%>" class="layui-input"></td>
+                            <td><input type="text" value="<%=rs.getString("title")%>" class="layui-input" readonly="true"></td>
                         </tr>
                         <tr>
                             <td>留言时间： </td>
-                            <td><input type="text" value="<%=rs.getTimestamp("sendtime")%>" class="layui-input"></td>
+                            <td><input type="text" value="<%=rs.getTimestamp("senddate")%>" class="layui-input" readonly="true"></td>
                         </tr>
                         <tr>
                             <td>留言内容： </td>
-                            <td><textarea cols="100" value="<%=rs.getString("info")%>" rows="6"></textarea></td>
+                            <td><textarea cols="100" rows="6" readonly="true"><%=rs.getString("info")%></textarea></td>
                         </tr>
                         <tr>
                             <td>回复时间： </td>
-                            <td><input value="<%=rs.getTimestamp("feedtime")%>" class="layui-input"></td>
+                            <td><input value="<%=rs.getTimestamp("feedtime")%>" class="layui-input" readonly="true"></td>
                         </tr>
                         <tr>
                             <td>回复内容： </td>
-                            <td><textarea value="<%=rs.getString("feedback")%>" cols="100" rows="6"></textarea></td>
+                            <td><textarea cols="100" rows="6" readonly="true"><%=rs.getString("feedback")%></textarea></td>
                         </tr>
                         </tbody>
                     </table>
