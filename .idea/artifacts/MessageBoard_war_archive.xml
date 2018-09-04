@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" build-on-make="true" name="MessageBoard:war archive">
+    <output-path>$PROJECT_DIR$/out/artifacts/MessageBoard_war_archive</output-path>
+    <root id="archive" name="MessageBoard_war archive.war">
+      <element id="artifact" artifact-name="MessageBoard:war" />
+    </root>
+  </artifact>
+</component>

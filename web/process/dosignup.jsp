@@ -12,7 +12,7 @@
     String email1=request.getParameter("account");
     String passwd1=request.getParameter("password");
     System.out.println("获取到用户名密码:"+email1+passwd1);
-    String sql = String.format("insert into user(name,passwd,permission)values(\"%s\",\"%s\",1)",email1,passwd1);
+    String sql = String.format("insert into user(name_u,passwd,permission)values(\"%s\",\"%s\",1)",email1,passwd1);
     System.out.println(sql);
     Connection conn;
     Statement stm;
