@@ -68,7 +68,7 @@
           <a class="" href="javascript:;">留言信息</a>
           <dl class="layui-nav-child">
             <%if(userP.equals("2")){%>
-            <dd class="layui-this"><a href="addbook.jsp">看留言</a></dd>
+            <dd class="layui-this"><a href="checkMsg4Admin.jsp">看留言</a></dd>
             <%}%>
             <%if(userP.equals("1")){%>
             <dd class="layui-this"><a href="sendMsg4User.jsp">写留言</a></dd>
@@ -92,11 +92,11 @@
       </ul>
       <div class="layui-carousel layui-container" id="test1" align="center">
         <div carousel-item>
-          <div><img src="img/1.jpg"></div>
-          <div><img src="img/2.jpg"></div>
-          <div><img src="img/3.jpg"></div>
-          <div><img src="img/4.jpg"></div>
-          <div><img src="img/5.jpg"></div>
+          <div><img src="img/5_1.jpg"></div>
+          <div><img src="img/5_2.jpg"></div>
+          <div><img src="img/5_3.jpg"></div>
+          <div><img src="img/5_4.jpg"></div>
+          <div><img src="img/5_5.jpg"></div>
         </div>
       </div>
     </div>

@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: 13994
-  Date: 2018/9/3
-  Time: 15:23
+  Date: 2018/9/4
+  Time: 8:44
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -85,7 +85,9 @@
         <!-- 内容主体区域 -->
         <%
             request.setCharacterEncoding("utf-8");
-            String sql = String.format("select id,title,senddate,info,feedback from message where from_u=\'%s\'",userN);
+            String iid=request.getParameter("iid");
+            String sql = String.format("select id,title,info,senddate,feedback,feedtime" +
+                    " from message where id=\'%s\'",iid);
             System.out.println(sql);
             Connection conn;
             Statement stm;
@@ -96,6 +98,7 @@
                 conn = DriverManager.getConnection(url, "root", "270400");
                 stm = conn.createStatement();
                 rs = stm.executeQuery(sql);
+                rs.next();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -107,37 +110,36 @@
                     <cite>主面板</cite>
                 </li>
             </ul>
-            <table class="layui-table" lay-skin="line">
-                <colgroup>
-                    <col width="10">
-                    <col width="10">
-                    <col width="10">
-                    <col width="10">
-                    <col width="200">
-                </colgroup>
-                <thead>
-                <tr>
-                    <th>标题</th>
-                    <th>时间</th>
-                    <th>内容</th>
-                    <th>回复</th>
-                    <th>操作</th>
-                </tr>
-                </thead>
-                <tbody>
-                <%while(rs.next()){%>
-                <tr>
-                    <td><%=rs.getString("title")%></td>
-                    <td><%=rs.getTimestamp("senddate")%></td>
-                    <td><%=rs.getString("info")%></td>
-                    <td><%=rs.getString("feedback")%></td>
-                    <td>
-                        <a href="replyMsg4Admin.jsp?iid=<%=rs.getString("id")%>" class="layui-btn layui-btn-mini">回复留言</a>
-                    </td>
-                </tr>
-                <%}%>
-                </tbody>
-            </table>
+            <div class="layui-container" align="center">
+                <form class="layui-form" action="process/doReplyMsg.jsp?iid=<%=rs.getString("id")%>" method="post">
+                    <table class="layui-table" lay-skin="line">
+                        <tbody>
+                        <tr>
+                            <td>标题： </td>
+                            <td><input type="text" value="<%=rs.getString("title")%>" class="layui-input" readonly="true"></td>
+                        </tr>
+                        <tr>
+                            <td>留言时间： </td>
+                            <td><input type="text" value="<%=rs.getTimestamp("senddate")%>" class="layui-input" readonly="true"></td>
+                        </tr>
+                        <tr>
+                            <td>留言内容： </td>
+                            <td><textarea cols="100" rows="6" readonly="true"><%=rs.getString("info")%></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>回复时间： </td>
+                            <td><input value="<%=rs.getTimestamp("feedtime")%>" class="layui-input"></td>
+                        </tr>
+                        <tr>
+                            <td>回复内容： </td>
+                            <td><textarea name="feedback" cols="100" rows="6"><%=rs.getString("feedback")%></textarea></td>
+                        </tr>
+                        <br>
+                        <input type="submit" class="layui-btn layui-btn-normal" value="提交留言"/>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
         </div>
 
         <div class="layui-footer">
@@ -156,3 +158,4 @@
     </script>
 </body>
 </html>
+
