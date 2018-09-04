@@ -1,11 +1,14 @@
 <component name="ArtifactManager">
-  <artifact type="exploded-war" name="MessageBoard:war exploded">
-    <output-path>$PROJECT_DIR$/out/artifacts/MessageBoard_war_exploded</output-path>
+  <artifact type="exploded-war" build-on-make="true" name="MessageBoard:war">
+    <output-path>$PROJECT_DIR$/out/artifacts/MessageBoard_war</output-path>
     <root id="root">
       <element id="javaee-facet-resources" facet="MessageBoard/web/Web" />
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
           <element id="module-output" name="MessageBoard" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="file-copy" path="$USER_HOME$/Downloads/mysql-connector-java-5.1.47.jar" />
         </element>
       </element>
     </root>
