@@ -93,7 +93,7 @@
             try {
                 Class.forName("com.mysql.jdbc.Driver");
                 String url = "jdbc:mysql://39.108.90.113/messageboard?characterEncoding=UTF-8";
-                conn = DriverManager.getConnection(url, "root", "270400");
+                conn = DriverManager.getConnection(url, "root", "ALIyun270400.");
                 stm = conn.createStatement();
                 rs = stm.executeQuery(sql);
             } catch (Exception e) {
