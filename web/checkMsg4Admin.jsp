@@ -5,7 +5,7 @@
   Time: 15:23
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <%@ page import="java.sql.*" %>
 <html>
 <head>
@@ -85,7 +85,7 @@
         <!-- 内容主体区域 -->
         <%
             request.setCharacterEncoding("utf-8");
-            String sql = String.format("select id,title,senddate,info,feedback from message where from_u=\'%s\'",userN);
+            String sql = String.format("select id,to_u,title,senddate,info,feedback from message where from_u=\'%s\'",userN);
             System.out.println(sql);
             Connection conn;
             Statement stm;
@@ -113,11 +113,13 @@
                     <col width="10">
                     <col width="10">
                     <col width="10">
+                    <col width="10">
                     <col width="200">
                 </colgroup>
                 <thead>
                 <tr>
                     <th>标题</th>
+                    <th>用户</th>
                     <th>时间</th>
                     <th>内容</th>
                     <th>回复</th>
@@ -128,6 +130,7 @@
                 <%while(rs.next()){%>
                 <tr>
                     <td><%=rs.getString("title")%></td>
+                    <td><%=rs.getString("to_u")%></td>
                     <td><%=rs.getTimestamp("senddate")%></td>
                     <td><%=rs.getString("info")%></td>
                     <td><%=rs.getString("feedback")%></td>
