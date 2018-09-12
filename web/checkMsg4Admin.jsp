@@ -136,6 +136,8 @@
                     <td><%=rs.getString("feedback")%></td>
                     <td>
                         <a href="replyMsg4Admin.jsp?iid=<%=rs.getString("id")%>" class="layui-btn layui-btn-mini">回复留言</a>
+                        <a href="process/doinfodelete.jsp?iid=<%=rs.getString("id")%>" class="layui-btn layui-btn-danger layui-btn-mini">删除</a>
+
                     </td>
                 </tr>
                 <%}%>
