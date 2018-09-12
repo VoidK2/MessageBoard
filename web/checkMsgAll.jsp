@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: 13994
-  Date: 2018/9/3
-  Time: 15:23
+  Date: 2018/9/12
+  Time: 10:12
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8"%>
@@ -91,7 +91,7 @@
         <!-- 内容主体区域 -->
         <%
             request.setCharacterEncoding("utf-8");
-            String sql = String.format("select id,to_u,title,senddate,info,feedback from message where from_u=\'%s\'",userN);
+            String sql = String.format("select * from leavemsg1");
             System.out.println(sql);
             Connection conn;
             Statement stm;
@@ -125,10 +125,9 @@
                 <thead>
                 <tr>
                     <th>标题</th>
-                    <th>用户</th>
-                    <th>时间</th>
+                    <th>发起人</th>
                     <th>内容</th>
-                    <th>回复</th>
+                    <th>时间</th>
                     <th>操作</th>
                 </tr>
                 </thead>
@@ -136,14 +135,14 @@
                 <%while(rs.next()){%>
                 <tr>
                     <td><%=rs.getString("title")%></td>
-                    <td><%=rs.getString("to_u")%></td>
-                    <td><%=rs.getTimestamp("senddate")%></td>
-                    <td><%=rs.getString("info")%></td>
-                    <td><%=rs.getString("feedback")%></td>
+                    <td><%=rs.getString("author")%></td>
+                    <td><%=rs.getString("msgone")%></td>
+                    <td><%=rs.getTimestamp("time")%></td>
                     <td>
-                        <a href="replyMsg4Admin.jsp?iid=<%=rs.getString("id")%>" class="layui-btn layui-btn-mini">回复留言</a>
-                        <a href="process/doinfodelete4admin.jsp?iid=<%=rs.getString("id")%>" class="layui-btn layui-btn-danger layui-btn-mini">删除</a>
-
+                        <a href="checkMsgOne.jsp?iid=<%=rs.getString("id")%>" class="layui-btn layui-btn-mini">详情</a>
+                        <%if(userP.equals("2")||userN.equals(rs.getString("author"))){%>
+                        <a href="process/doinfodelete4leave.jsp?iid=<%=rs.getString("id")%>" class="layui-btn layui-btn-danger layui-btn-mini">删除</a>
+                        <%}%>
                     </td>
                 </tr>
                 <%}%>

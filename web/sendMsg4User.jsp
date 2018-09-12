@@ -66,14 +66,20 @@
             <%if(userP != null){%>
             <ul class="layui-nav layui-nav-tree" lay-filter="test">
                 <li class="layui-nav-item layui-nav-itemed">
+                    <a class="" href="javascript:;">站内信</a>
+                    <dl class="layui-nav-child">
+                        <%if (userP.equals("2")) {%>
+                        <dd class="layui-this"><a href="checkMsg4Admin.jsp">查看站内信</a></dd>
+                        <%}%>
+                        <%if (userP.equals("1")) {%>
+                        <dd class="layui-this"><a href="sendMsg4User.jsp">写站内信</a></dd>
+                        <%}%>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
                     <a class="" href="javascript:;">留言信息</a>
                     <dl class="layui-nav-child">
-                        <%if(userP.equals("2")){%>
-                        <dd class="layui-this"><a href="addbook.jsp">看留言</a></dd>
-                        <%}%>
-                        <%if(userP.equals("1")){%>
-                        <dd class="layui-this"><a href="addbook.jsp">写留言</a></dd>
-                        <%}%>
+                        <dd class="layui-this"><a href="checkMsgAll.jsp">查看留言</a></dd>
                     </dl>
                 </li>
             </ul>

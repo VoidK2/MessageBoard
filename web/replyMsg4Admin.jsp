@@ -66,14 +66,20 @@
             <%if(userP != null){%>
             <ul class="layui-nav layui-nav-tree" lay-filter="test">
                 <li class="layui-nav-item layui-nav-itemed">
+                    <a class="" href="javascript:;">站内信</a>
+                    <dl class="layui-nav-child">
+                        <%if (userP.equals("2")) {%>
+                        <dd class="layui-this"><a href="checkMsg4Admin.jsp">查看站内信</a></dd>
+                        <%}%>
+                        <%if (userP.equals("1")) {%>
+                        <dd class="layui-this"><a href="sendMsg4User.jsp">写站内信</a></dd>
+                        <%}%>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
                     <a class="" href="javascript:;">留言信息</a>
                     <dl class="layui-nav-child">
-                        <%if(userP.equals("2")){%>
-                        <dd class="layui-this"><a href="addbook.jsp">看留言</a></dd>
-                        <%}%>
-                        <%if(userP.equals("1")){%>
-                        <dd class="layui-this"><a href="addbook.jsp">写留言</a></dd>
-                        <%}%>
+                        <dd class="layui-this"><a href="checkMsgAll.jsp">查看留言</a></dd>
                     </dl>
                 </li>
             </ul>
@@ -116,23 +122,17 @@
                         <tbody>
                         <tr>
                             <td>标题： </td>
-                            <td><input type="text" value="<%=rs.getString("title")%>" class="layui-input" readonly="true"></td>
-                        </tr>
-                        <tr>
-                            <td>留言时间： </td>
-                            <td><input type="text" value="<%=rs.getTimestamp("senddate")%>" class="layui-input" readonly="true"></td>
+                            <td><%=rs.getString("title")%></td>
                         </tr>
                         <tr>
                             <td>留言内容： </td>
-                            <td><textarea cols="100" rows="6" readonly="true"><%=rs.getString("info")%></textarea></td>
-                        </tr>
-                        <tr>
-                            <td>回复时间： </td>
-                            <td><input value="<%=rs.getTimestamp("feedtime")%>" class="layui-input"></td>
+                            <td><%=rs.getString("info")%></td>
+                            <td><%=rs.getTimestamp("senddate")%></td>
                         </tr>
                         <tr>
                             <td>回复内容： </td>
                             <td><textarea name="feedback" cols="100" rows="6"><%=rs.getString("feedback")%></textarea></td>
+                            <td><%=rs.getTimestamp("feedtime")%></td>
                         </tr>
                         <br>
                         <input type="submit" class="layui-btn layui-btn-normal" value="提交留言"/>
