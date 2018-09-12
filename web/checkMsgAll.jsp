@@ -65,7 +65,7 @@
         <div class="layui-side-scroll">
             <%if(userP != null){%>
             <ul class="layui-nav layui-nav-tree" lay-filter="test">
-                <li class="layui-nav-item layui-nav-itemed">
+                <li class="layui-nav-item">
                     <a class="" href="javascript:;">站内信</a>
                     <dl class="layui-nav-child">
                         <%if (userP.equals("2")) {%>
@@ -76,7 +76,7 @@
                         <%}%>
                     </dl>
                 </li>
-                <li class="layui-nav-item">
+                <li class="layui-nav-item  layui-nav-itemed">
                     <a class="" href="javascript:;">留言信息</a>
                     <dl class="layui-nav-child">
                         <dd class="layui-this"><a href="checkMsgAll.jsp">查看留言</a></dd>
@@ -148,6 +148,24 @@
                 <%}%>
                 </tbody>
             </table>
+            <div class="layui-container" align="center">
+                <form class="layui-form" action="process/storageLeaveInfo.jsp" method="post">
+                    <table class="layui-table" lay-skin="line">
+                        <tbody>
+                        <tr>
+                            <td>标题： </td>
+                            <td><input type="text" name="title" class="layui-input"></td>
+                        </tr>
+                        <tr>
+                            <td>内容： </td>
+                            <td><textarea name="info" id="t1" cols="100" rows="6"></textarea></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <br>
+                    <input type="submit" class="layui-btn layui-btn-normal" value="提交留言">
+                </form>
+            </div>
         </div>
 
         <div class="layui-footer">

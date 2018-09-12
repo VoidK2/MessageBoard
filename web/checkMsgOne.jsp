@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ page import="java.sql.*" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <html>
 <head>
     <title>后台</title>
@@ -65,7 +66,7 @@
         <div class="layui-side-scroll">
             <%if(userP != null){%>
             <ul class="layui-nav layui-nav-tree" lay-filter="test">
-                <li class="layui-nav-item layui-nav-itemed">
+                <li class="layui-nav-item">
                     <a class="" href="javascript:;">站内信</a>
                     <dl class="layui-nav-child">
                         <%if (userP.equals("2")) {%>
@@ -76,7 +77,7 @@
                         <%}%>
                     </dl>
                 </li>
-                <li class="layui-nav-item">
+                <li class="layui-nav-item layui-nav-itemed">
                     <a class="" href="javascript:;">留言信息</a>
                     <dl class="layui-nav-child">
                         <dd class="layui-this"><a href="checkMsgAll.jsp">查看留言</a></dd>
@@ -98,6 +99,7 @@
             Connection conn;
             Statement stm,stm2;
             ResultSet rs=null,rs2=null;
+            String time=null,msgone=null,author=null,title=null;
             try {
                 Class.forName("com.mysql.jdbc.Driver");
                 String url = "jdbc:mysql://39.108.90.113/messageboard?characterEncoding=UTF-8";
@@ -106,6 +108,12 @@
                 rs = stm.executeQuery(sql);
                 stm2 = conn.createStatement();
                 rs2 = stm2.executeQuery(sql2);
+                rs.next();
+                title=rs.getString("title");
+                author=rs.getString("author");
+                msgone=rs.getString("msgone");
+                SimpleDateFormat formattime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                time=formattime.format(rs.getTimestamp("time").getTime());
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -133,12 +141,11 @@
                 </tr>
                 </thead>
                 <tbody>
-                <%rs.next();%>
                 <tr>
-                    <td><%=rs.getString("title")%></td>
-                    <td><%=rs.getString("author")%></td>
-                    <td><%=rs.getString("msgone")%></td>
-                    <td><%=rs.getTimestamp("time")%></td>
+                    <td><%=title%></td>
+                    <td><%=author%></td>
+                    <td><%=msgone%></td>
+                    <td><%=time%></td>
                 </tr>
                 </tbody>
             </table>
@@ -155,8 +162,8 @@
                     <td><%=rs2.getString("name")%></td>
                     <td><%=rs2.getString("subject")%></td>
                     <td><%=rs2.getTimestamp("time")%></td>
-                    <%if(userP.equals("2")||userN.equals(rs.getString("author"))){%>
-                        <a href="process/doinfodelete4leaveone.jsp?iid=<%=rs2.getString("subid")%>" class="layui-btn layui-btn-danger layui-btn-mini">删除</a>
+                    <%if(userP.equals("2")||userN.equals(author)){%>
+                    <td><a href="process/doinfodelete4leaveone.jsp?iid=<%=rs2.getString("subid")%>&id=<%=iid%>" class="layui-btn layui-btn-danger layui-btn-mini">删除</a></td>
                     <%}%>
                 </tr>
                 <%}%>

@@ -30,6 +30,6 @@
     catch (Exception e){
         e.printStackTrace();
     }
-    response.sendRedirect("../checkMsgOne.jsp");
+    response.sendRedirect("../checkMsgOne.jsp?iid="+id);
 
 %>

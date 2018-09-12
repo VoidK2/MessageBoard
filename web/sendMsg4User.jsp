@@ -91,7 +91,7 @@
         <!-- 内容主体区域 -->
         <%
             request.setCharacterEncoding("utf-8");
-            String sql = String.format("select id,title,senddate,info,feedback from message where to_u=\'%s\'",userN);
+            String sql = String.format("select * from message where to_u=\'%s\'",userN);
             System.out.println(sql);
             Connection conn;
             Statement stm;
@@ -125,8 +125,6 @@
                 <tr>
                     <th>标题</th>
                     <th>时间</th>
-                    <th>内容</th>
-                    <th>回复</th>
                     <th>操作</th>
                 </tr>
                 </thead>
@@ -134,9 +132,7 @@
                 <%while(rs.next()){%>
                 <tr>
                     <td><%=rs.getString("title")%></td>
-                    <td><%=rs.getTimestamp("senddate")%></td>
-                    <td><%=rs.getString("info")%></td>
-                    <td><%=rs.getString("feedback")%></td>
+                    <td><%=rs.getTimestamp("time")%></td>
                     <td>
                         <a href="checkMsg4User.jsp?iid=<%=rs.getString("id")%>" class="layui-btn layui-btn-mini">查看</a>
                         <a href="process/doinfodelete.jsp?iid=<%=rs.getString("id")%>" class="layui-btn layui-btn-danger layui-btn-mini">删除</a>

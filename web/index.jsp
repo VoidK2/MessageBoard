@@ -58,7 +58,7 @@
         <div class="layui-side-scroll">
             <%if (userP != null) {%>
             <ul class="layui-nav layui-nav-tree" lay-filter="test">
-                <li class="layui-nav-item layui-nav-itemed">
+                <li class="layui-nav-item">
                     <a class="" href="javascript:;">站内信</a>
                     <dl class="layui-nav-child">
                         <%if (userP.equals("2")) {%>

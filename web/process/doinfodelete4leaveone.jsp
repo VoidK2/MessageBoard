@@ -10,6 +10,7 @@
 <%
     request.setCharacterEncoding("utf-8");
     String iid=request.getParameter("iid");
+    String id=request.getParameter("id");
     String sql = String.format("delete from leavemsg2 where subid=\'%s\'",iid);
     System.out.println(sql);
     Connection conn;
@@ -24,5 +25,5 @@
     catch (Exception e){
         e.printStackTrace();
     }
-    response.sendRedirect("../checkMsgOne.jsp");
+    response.sendRedirect("../checkMsgOne.jsp?iid="+id);
 %>

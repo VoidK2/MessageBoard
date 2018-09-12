@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.sql.*" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <html>
 <head>
     <title>后台</title>
@@ -92,12 +93,17 @@
         <%
             request.setCharacterEncoding("utf-8");
             String iid=request.getParameter("iid");
-            String sql = String.format("select title,info,senddate,feedback,feedtime" +
+            String sql = String.format("select *" +
                     " from message where id=\'%s\'",iid);
+            String sql2 = String.format("select *" +
+                    " from message2 where id=\'%s\'",iid);
             System.out.println(sql);
+            System.out.println(sql2);
             Connection conn;
-            Statement stm;
-            ResultSet rs=null;
+            Statement stm,stm2;
+            ResultSet rs=null,rs2=null;
+            String to_u=null,title=null,time=null,feedback=null;
+            int f=0;
             try {
                 Class.forName("com.mysql.jdbc.Driver");
                 String url = "jdbc:mysql://39.108.90.113/messageboard?characterEncoding=UTF-8";
@@ -105,6 +111,12 @@
                 stm = conn.createStatement();
                 rs = stm.executeQuery(sql);
                 rs.next();
+                to_u=rs.getString("to_u");
+                title=rs.getString("title");
+                SimpleDateFormat formattime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                time=formattime.format(rs.getTimestamp("time").getTime());
+                stm2 = conn.createStatement();
+                rs2 = stm2.executeQuery(sql2);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -117,29 +129,42 @@
                 </li>
             </ul>
             <div class="layui-container" align="center">
-                <form class="layui-form" action="" method="post">
+                <form class="layui-form" action="process/storageInfoOne.jsp?iid=<%=iid%>" method="post">
                     <table class="layui-table" lay-skin="line">
                         <tbody>
                         <tr>
                             <td>标题： </td>
-                            <td><input type="text" value="<%=rs.getString("title")%>" class="layui-input" readonly="true"></td>
+                            <td><%=title%></td>
+                            <td><%=time%></td>
+                        </tr>
+                        <%while(rs2.next()){
+                            feedback=rs2.getString("feedback");
+                            if(feedback==null){
+                                f=1;
+                            }else{ f=0; }
+                        %>
+                        <tr>
+                            <td>留言内容: </td>
+                            <td><%=rs2.getString("subject")%></td>
+                            <td><%=rs2.getString("sendtime")%></td>
                         </tr>
                         <tr>
-                            <td>留言时间： </td>
-                            <td><input type="text" value="<%=rs.getTimestamp("senddate")%>" class="layui-input" readonly="true"></td>
+                            <%if(f==0){%>
+                            <td>回复内容: </td>
+                            <td><%=feedback%></td>
+                            <td><%=rs2.getString("feedtime")%></td>
+                            <%}%>
                         </tr>
+                        <%}%>
+                        <%if(f==0){%>
+                        <%--表中不为空才可追问--%>
                         <tr>
-                            <td>留言内容： </td>
-                            <td><textarea cols="100" rows="6" readonly="true"><%=rs.getString("info")%></textarea></td>
+                            <td>追问： </td>
+                            <td><textarea name="subject" cols="100" rows="6"></textarea></td>
                         </tr>
-                        <tr>
-                            <td>回复时间： </td>
-                            <td><input value="<%=rs.getTimestamp("feedtime")%>" class="layui-input" readonly="true"></td>
-                        </tr>
-                        <tr>
-                            <td>回复内容： </td>
-                            <td><textarea cols="100" rows="6" readonly="true"><%=rs.getString("feedback")%></textarea></td>
-                        </tr>
+                        <br>
+                        <input type="submit" class="layui-btn layui-btn-normal" value="提交追问"/>
+                        <%}%>
                         </tbody>
                     </table>
                 </form>
