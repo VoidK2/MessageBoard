@@ -91,7 +91,7 @@
         <!-- 内容主体区域 -->
         <%
             request.setCharacterEncoding("utf-8");
-            String sql = String.format("select * from message where to_u=\'%s\'",userN);
+            String sql = String.format("select * from message where user=\'%s\'",userN);
             System.out.println(sql);
             Connection conn;
             Statement stm;

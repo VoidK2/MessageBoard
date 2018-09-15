@@ -10,9 +10,13 @@
 <%
     request.setCharacterEncoding("utf-8");
     String iid=request.getParameter("iid");
-    String feedback=request.getParameter("feedback");
-    System.out.println("获取到回复"+feedback);
-    String sql = String.format("update message2 set feedback=\'%s\',feedtime=now() where id=\'%s\'",feedback,iid);
+    String feedback4admin=request.getParameter("feedback4admin");
+    String userN = (String) session.getAttribute("userN");
+    System.out.println("获取到回复"+feedback4admin);
+    String sql = String.format("insert into message2" +
+                    "(id,fromn,subject,sendtime) " +
+                    "values(%s,\'%s\',\'%s\',now())"
+            ,iid,userN,feedback4admin);
     System.out.println(sql);
     Connection conn;
     Statement stm;
@@ -21,10 +25,10 @@
         String url = "jdbc:mysql://39.108.90.113/messageboard?characterEncoding=UTF-8";
         conn = DriverManager.getConnection(url, "root", "ALIyun270400.");
         stm =conn.createStatement();
-        stm.execute(sql);
+        stm.executeUpdate(sql);
     }
     catch (Exception e){
         e.printStackTrace();
     }
-    response.sendRedirect("../checkMsg4Admin.jsp");
+    response.sendRedirect("../replyMsg4Admin.jsp?iid="+iid);
 %>

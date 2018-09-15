@@ -95,15 +95,14 @@
             String iid=request.getParameter("iid");
             String sql = String.format("select *" +
                     " from message where id=\'%s\'",iid);
-            String sql2 = String.format("select *" +
-                    " from message2 where id=\'%s\'",iid);
             System.out.println(sql);
-            System.out.println(sql2);
+            String sql2=String.format("select *" +
+                    " from message2 where id=\'%s\'",iid);
             Connection conn;
+            System.out.println(sql2);
             Statement stm,stm2;
             ResultSet rs=null,rs2=null;
-            String to_u=null,title=null,time=null,feedback=null;
-            int f=0;
+            String user1=null,title=null,time=null,feedback=null;
             try {
                 Class.forName("com.mysql.jdbc.Driver");
                 String url = "jdbc:mysql://39.108.90.113/messageboard?characterEncoding=UTF-8";
@@ -111,7 +110,7 @@
                 stm = conn.createStatement();
                 rs = stm.executeQuery(sql);
                 rs.next();
-                to_u=rs.getString("to_u");
+                user1=rs.getString("user");
                 title=rs.getString("title");
                 SimpleDateFormat formattime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 time=formattime.format(rs.getTimestamp("time").getTime());
@@ -137,26 +136,22 @@
                             <td><%=title%></td>
                             <td><%=time%></td>
                         </tr>
-                        <%while(rs2.next()){
-                            feedback=rs2.getString("feedback");
-                            if(feedback==null){
-                                f=1;
-                            }else{ f=0; }
-                        %>
                         <tr>
-                            <td>留言内容: </td>
-                            <td><%=rs2.getString("subject")%></td>
-                            <td><%=rs2.getString("sendtime")%></td>
+                            <td>用户： </td>
+                            <td><%=user1%></td>
                         </tr>
+                        <%while(rs2.next()) {%>
                         <tr>
-                            <%if(f==0){%>
-                            <td>回复内容: </td>
-                            <td><%=feedback%></td>
-                            <td><%=rs2.getString("feedtime")%></td>
+                            <%if(rs2.getString("ton")==null){%>
+                            <td><%=rs2.getString("fromn")%>： </td>
                             <%}%>
+                            <%if(rs2.getString("fromn")==null){%>
+                            <td><%=rs2.getString("ton")%>： </td>
+                            <%}%>
+                            <td><%=rs2.getString("subject")%></td>
+                            <td><%=rs2.getTimestamp("sendtime")%></td>
                         </tr>
                         <%}%>
-                        <%if(f==0){%>
                         <%--表中不为空才可追问--%>
                         <tr>
                             <td>追问： </td>
@@ -164,7 +159,6 @@
                         </tr>
                         <br>
                         <input type="submit" class="layui-btn layui-btn-normal" value="提交追问"/>
-                        <%}%>
                         </tbody>
                     </table>
                 </form>

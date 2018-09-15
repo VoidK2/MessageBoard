@@ -91,17 +91,20 @@
         <!-- 内容主体区域 -->
         <%
             request.setCharacterEncoding("utf-8");
-            String sql = String.format("select * from message where from_u=\'%s\'",userN);
+            String sql = String.format("select * from message where admin=\'%s\'",userN);
+            String sql2="select * from user where permission=1";
             System.out.println(sql);
             Connection conn;
-            Statement stm;
-            ResultSet rs=null;
+            Statement stm,stm2;
+            ResultSet rs=null,rs2=null;
             try {
                 Class.forName("com.mysql.jdbc.Driver");
                 String url = "jdbc:mysql://39.108.90.113/messageboard?characterEncoding=UTF-8";
                 conn = DriverManager.getConnection(url, "root", "ALIyun270400.");
                 stm = conn.createStatement();
                 rs = stm.executeQuery(sql);
+                stm2=conn.createStatement();
+                rs2 = stm2.executeQuery(sql2);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -134,10 +137,10 @@
                 <%while(rs.next()){%>
                 <tr>
                     <td><%=rs.getString("title")%></td>
-                    <td><%=rs.getString("to_u")%></td>
+                    <td><%=rs.getString("user")%></td>
                     <td><%=rs.getTimestamp("time")%></td>
                     <td>
-                        <a href="replyMsg4Admin.jsp?iid=<%=rs.getString("id")%>" class="layui-btn layui-btn-mini">回复留言</a>
+                        <a href="replyMsg4Admin.jsp?iid=<%=rs.getString("id")%>" class="layui-btn layui-btn-mini">回复站内信</a>
                         <a href="process/doinfodelete4admin.jsp?iid=<%=rs.getString("id")%>" class="layui-btn layui-btn-danger layui-btn-mini">删除</a>
                     </td>
                 </tr>
@@ -145,7 +148,30 @@
                 </tbody>
             </table>
         </div>
-
+        <div class="layui-container" align="center" style="margin-top:50px;">
+            <form class="layui-form" action="process/storageInfo4Admin.jsp" method="post">
+                <table class="layui-table" lay-skin="line">
+                    <tbody>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">选择用户：</label>
+                        <div class="layui-input-block">
+                            <select name="name" style="width:50px;">
+                                <%while(rs2.next()){%>
+                                <option value="<%=rs2.getString("name_u")%>"><%=rs2.getString("name_u")%></option>
+                                <%}%>
+                            </select>
+                        </div>
+                    </div>
+                    <tr>
+                        <label class="layui-form-label">内容：</label>
+                        <textarea name="info" id="t1" cols="100" rows="6"></textarea>
+                    </tr>
+                    </tbody>
+                </table>
+                <br>
+                <input type="submit" class="layui-btn layui-btn-normal" value="提交留言">
+            </form>
+        </div>
         <div class="layui-footer">
             <!-- 底部固定区域 -->
             ©遵循MIT许可协议

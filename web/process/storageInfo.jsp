@@ -14,7 +14,7 @@
     System.out.println("获取到内容:"+title+info);
     String userN = (String) session.getAttribute("userN");
     String sql = String.format("insert into message" +
-                    "(from_u,to_u,title,time) " +
+                    "(admin,user,title,time) " +
                     "values(\'admin\',\'%s\',\'%s\',now())"
             ,userN,title);
     System.out.println(sql);
@@ -38,7 +38,7 @@
         System.out.println("获取id"+iid);
         System.out.println(sql2);
         String sql3 = String.format("insert into message2" +
-                        "(id,user,subject,sendtime) " +
+                        "(id,ton,subject,sendtime) " +
                         "values(%s,\'%s\',\'%s\',now())"
                 ,iid,userN,info);
         System.out.println(sql3);

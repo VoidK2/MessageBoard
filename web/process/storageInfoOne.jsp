@@ -10,14 +10,13 @@
 <%
     request.setCharacterEncoding("utf-8");
     String iid=request.getParameter("iid");
-//    String to_u=request.getParameter("to_u");
-    String subject=request.getParameter("subject");
-    System.out.println("获取到内容:"+iid+subject);
+    String feedback4admin=request.getParameter("subject");
     String userN = (String) session.getAttribute("userN");
+    System.out.println("获取到回复"+feedback4admin);
     String sql = String.format("insert into message2" +
-                    "(id,user,subject,sendtime) " +
-                    "values(\'%s\',\'%s\',\'%s\',now())"
-            ,iid,userN,subject);
+                    "(id,ton,subject,sendtime) " +
+                    "values(%s,\'%s\',\'%s\',now())"
+            ,iid,userN,feedback4admin);
     System.out.println(sql);
     Connection conn;
     Statement stm;
@@ -31,6 +30,6 @@
     catch (Exception e){
         e.printStackTrace();
     }
-    response.sendRedirect("../sendMsg4User.jsp");
+    response.sendRedirect("../checkMsg4User.jsp?iid="+iid);
 
 %>
