@@ -159,7 +159,7 @@
 
                         </tr>
                         <br>
-                        <input type="submit" class="layui-btn layui-btn-normal" value="提交留言"/>
+                        <input type="submit" class="layui-btn layui-btn-normal" value="提交"/>
                         </tbody>
                     </table>
                 </form>
